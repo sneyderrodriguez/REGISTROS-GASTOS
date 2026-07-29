@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main class="container-main">
+        <div class="text-title">
+            <h1>Registro de Gastos</h1>
+        </div>
+        <div class="col-datos">
+            <div class="row">
+                <select id="categorias">
+                    <option>Comida</option>
+                    <option>Transorte</option>
+                    <option>Entretenimiento</option>
+                    <option>Servicios</option>
+                    <option>Otros</option>
+                </select>
+            </div>
+            <div class="row">
+                <input type="text" id="descripcion" placeholder="Descripción del gasto">
+            </div>
+            <div class="row">
+                <input type="text" id="monto" placeholder="Monto">
+            </div>
+            <button id="agregar" class="agregar">Agregar Gasto</button>
+            <div id="totalHoy"></div>
+            <div id="totalMes"></div>
+            <div id="totalCategoria"></div>
+            <div id="totalGastosIndividuales"></div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
