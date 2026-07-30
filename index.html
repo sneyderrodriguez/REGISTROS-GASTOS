@@ -10,29 +10,27 @@
 
 <body>
     <main class="container-main">
-        <div class="text-title">
-            <h1>Registro de Gastos</h1>
-        </div>
-        <div class="col-datos">
-            <div class="row">
+        <h1>Registro de Gastos</h1>
+        <div class="panel-superior">
+            <div class="formulario">
                 <select id="categorias">
                     <option>Comida</option>
-                    <option>Transorte</option>
+                    <option>Transporte</option>
                     <option>Entretenimiento</option>
                     <option>Servicios</option>
                     <option>Otros</option>
                 </select>
-            </div>
-            <div class="row">
                 <input type="text" id="descripcion" placeholder="Descripción del gasto">
-            </div>
-            <div class="row">
                 <input type="text" id="monto" placeholder="Monto">
+                <button id="agregar" class="agregar">Agregar Gasto</button>
             </div>
-            <button id="agregar" class="agregar">Agregar Gasto</button>
-            <div id="totalHoy"></div>
-            <div id="totalMes"></div>
-            <div id="totalCategoria"></div>
+            <div class="resumen">
+                <div id="totalHoy"></div>
+                <div id="totalMes"></div>
+                <div id="totalCategoria"></div>
+            </div>
+        </div>
+        <div class="lista">
             <div id="totalGastosIndividuales"></div>
         </div>
     </main>

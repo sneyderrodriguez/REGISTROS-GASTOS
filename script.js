@@ -10,12 +10,13 @@ const totalGastosIndividuales = document.querySelector("#totalGastosIndividuales
 
 btnAgregar.addEventListener("click", agregarGastos);
 
-function agregarGastos(params) {
-    const datosGuardados = localStorage.getItem("gastos");
-    if (datosGuardados) {
-        gastos = JSON.parse(localStorage.getItem("gastos"));
-    }
+const datosGuardados = localStorage.getItem("gastos");
+if (datosGuardados) {
+    gastos = JSON.parse(datosGuardados);
+}
+actualizarPantalla();
 
+function agregarGastos() {
     let descGastos = descripcion.value;
     let montoGastos = Number(monto.value);
     let catgGastos = categoria.value;
@@ -40,12 +41,12 @@ function limpiarFormulario() {
     categoria.selectedIndex = 0;
 }
 function actualizarPantalla() {
-    gastosHoy();
-    totalMes();
-    totalCategoria();
+    mostrarGastosHoy();
+    mostrarGastosMes();
+    mostrarGastosCategorias();
     totalListaGastos();
 }
-function gastosHoy(gasto) {
+function calcularHoy(gasto) {
     const fechaGasto = new Date(gasto.fecha);
     const hoy = new Date();
     return (
@@ -54,12 +55,100 @@ function gastosHoy(gasto) {
         fechaGasto.getFullYear() === hoy.getFullYear()
     );
 }
-function totalMes() {
+function mostrarGastosHoy() {
+    const gastosHoy = gastos.filter(calcularHoy);
+    const totaldeHoy = gastosHoy.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0);
+    totalHoy.textContent = totaldeHoy;
+}
+
+function calcularMes(gasto) {
+    const fechaGasto = new Date(gasto.fecha);
+    const hoy = new Date();
+    return (
+        fechaGasto.getMonth() === hoy.getMonth() &&
+        fechaGasto.getFullYear() === hoy.getFullYear()
+    );
+}
+function mostrarGastosMes() {
+    const gastosMes = gastos.filter(calcularMes)
+    const totaldelmes = gastosMes.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0);
+    totalMes.textContent = totaldelmes;
+}
+
+/*=============================================================
+                            PARTE 5
+  =============================================================*/
+function mostrarGastosCategorias() {
+    const comida = gastos.filter((gasto) => {
+    return gasto.categoria === "Comida";
+})
+const totalComida = comida.reduce((acumulador, gasto) => {
+    return acumulador + gasto.monto;
+}, 0)
+
+const transporte = gastos.filter((gasto) => {
+    return gasto.categoria === "Transporte";
+})
+const totalTransporte = transporte.reduce((acumulador, gasto) => {
+    return acumulador + gasto.monto;
+}, 0)
+
+const entretenimiento = gastos.filter((gasto) => {
+    return gasto.categoria === "Entretenimiento";
+})
+const totalEntretenimiento = entretenimiento.reduce((acumulador, gasto) => {
+    return acumulador + gasto.monto;
+}, 0)
+
+const servicios = gastos.filter((gasto) => {
+    return gasto.categoria === "Servicios";
+})
+const totalServicios = servicios.reduce((acumulador, gasto) => {
+    return acumulador + gasto.monto;
+}, 0)
+
+const otros = gastos.filter((gasto) => {
+    return gasto.categoria === "Otros";
+})
+const totalOtros = otros.reduce((acumulador, gasto) => {
+    return acumulador + gasto.monto;
+}, 0)
+totalCategoria.innerHTML = `
+    <p>Comida: $${totalComida}</p>
+    <p>Transporte: $${totalTransporte}</p>
+    <p>Entretenimiento: $${totalEntretenimiento}</p>
+    <p>Servicios: $${totalServicios}</p>
+    <p>Otros: $${totalOtros}</p>`
 
 }
-function totalCategoria() {
-
-}
+/*=============================================================
+                            PARTE 6
+  =============================================================*/
 function totalListaGastos() {
+    totalGastosIndividuales.innerHTML = "";
+    gastos.forEach((gasto, indice) => {
+        totalGastosIndividuales.innerHTML += `
+            <div class="gasto">
+                <p>Descripción: ${gasto.descripcion}</p>
+                <p>Categoría: ${gasto.categoria}</p>
+                <p>Monto: $${gasto.monto}</p>
 
+                <button onclick="eliminarGasto(${indice})">
+                    Eliminar
+                </button>
+            </div>`
+    })
+
+}
+function eliminarGasto(indice) {
+    if (!confirm("⚠ ¿Está seguro de eliminar el gasto?")) {
+        return;
+    }
+    gastos.splice(indice, 1);
+    localStorage.setItem("gastos", JSON.stringify(gastos));
+    actualizarPantalla();
 }
