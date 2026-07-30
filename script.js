@@ -21,7 +21,7 @@ function agregarGastos() {
     let montoGastos = Number(monto.value);
     let catgGastos = categoria.value;
     if (descGastos === "" || montoGastos <= 0) {
-        alert("⚠ Ingreso una descripción y un monto válido ⚠")
+        alert("⚠ Ingrese una descripción y un monto válido ⚠")
         return;
     }
     const gasto = {
@@ -84,40 +84,40 @@ function mostrarGastosMes() {
   =============================================================*/
 function mostrarGastosCategorias() {
     const comida = gastos.filter((gasto) => {
-    return gasto.categoria === "Comida";
-})
-const totalComida = comida.reduce((acumulador, gasto) => {
-    return acumulador + gasto.monto;
-}, 0)
+        return gasto.categoria === "Comida";
+    })
+    const totalComida = comida.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0)
 
-const transporte = gastos.filter((gasto) => {
-    return gasto.categoria === "Transporte";
-})
-const totalTransporte = transporte.reduce((acumulador, gasto) => {
-    return acumulador + gasto.monto;
-}, 0)
+    const transporte = gastos.filter((gasto) => {
+        return gasto.categoria === "Transporte";
+    })
+    const totalTransporte = transporte.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0)
 
-const entretenimiento = gastos.filter((gasto) => {
-    return gasto.categoria === "Entretenimiento";
-})
-const totalEntretenimiento = entretenimiento.reduce((acumulador, gasto) => {
-    return acumulador + gasto.monto;
-}, 0)
+    const entretenimiento = gastos.filter((gasto) => {
+        return gasto.categoria === "Entretenimiento";
+    })
+    const totalEntretenimiento = entretenimiento.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0)
 
-const servicios = gastos.filter((gasto) => {
-    return gasto.categoria === "Servicios";
-})
-const totalServicios = servicios.reduce((acumulador, gasto) => {
-    return acumulador + gasto.monto;
-}, 0)
+    const servicios = gastos.filter((gasto) => {
+        return gasto.categoria === "Servicios";
+    })
+    const totalServicios = servicios.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0)
 
-const otros = gastos.filter((gasto) => {
-    return gasto.categoria === "Otros";
-})
-const totalOtros = otros.reduce((acumulador, gasto) => {
-    return acumulador + gasto.monto;
-}, 0)
-totalCategoria.innerHTML = `
+    const otros = gastos.filter((gasto) => {
+        return gasto.categoria === "Otros";
+    })
+    const totalOtros = otros.reduce((acumulador, gasto) => {
+        return acumulador + gasto.monto;
+    }, 0)
+    totalCategoria.innerHTML = `
     <p>Comida: $${totalComida}</p>
     <p>Transporte: $${totalTransporte}</p>
     <p>Entretenimiento: $${totalEntretenimiento}</p>
@@ -133,13 +133,16 @@ function totalListaGastos() {
     gastos.forEach((gasto, indice) => {
         totalGastosIndividuales.innerHTML += `
             <div class="gasto">
-                <p>Descripción: ${gasto.descripcion}</p>
-                <p>Categoría: ${gasto.categoria}</p>
-                <p>Monto: $${gasto.monto}</p>
-
-                <button onclick="eliminarGasto(${indice})">
+                <div class="info">
+                    <h3>${gasto.descripcion}</h3>
+                    <span>${gasto.categoria}</span>
+                </div>
+                <div class="btnEliminar">
+                    <strong>$${gasto.monto}</strong>
+                    <button onclick="eliminarGasto(${indice})">
                     Eliminar
-                </button>
+                    </button>
+                </div>
             </div>`
     })
 
